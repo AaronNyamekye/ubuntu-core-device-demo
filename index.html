@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ubuntu Core Device Setup</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #77216f;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .completed {
+            background: #2d8a34;
+            color: white;
+        }
+
+        .current {
+            background: #e95420;
+            color: white;
+        }
+
+        button {
+            background: #e95420;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #c74316;
+        }
+
+        .status {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .status-item {
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 6px;
+        }
+
+        .ready {
+            color: #2d8a34;
+            font-weight: bold;
+        }
+
+        .waiting {
+            color: #e95420;
+            font-weight: bold;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Ubuntu Core Device Setup</h1>
+    <p>Simple device boot and setup demonstration</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Device Setup Flow</h2>
+
+        <div class="step">
+            <div id="number1" class="number completed">✓</div>
+            <div>
+                <strong>Power On</strong>
+                <p>Device receives power and begins the boot process.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div id="number2" class="number completed">✓</div>
+            <div>
+                <strong>Boot Ubuntu Core</strong>
+                <p>The operating system starts on the device.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div id="number3" class="number current">3</div>
+            <div>
+                <strong>Connect Network</strong>
+                <p>Connect the device to a network.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div id="number4" class="number">4</div>
+            <div>
+                <strong>Configure Device</strong>
+                <p>Apply basic device configuration.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div id="number5" class="number">5</div>
+            <div>
+                <strong>Setup Complete</strong>
+                <p>The device is ready to use.</p>
+            </div>
+        </div>
+
+        <button onclick="continueSetup()">Continue Setup</button>
+
+        <div id="message"></div>
+    </div>
+
+    <div class="card">
+        <h2>Device Status</h2>
+
+        <div class="status">
+
+            <div class="status-item">
+                <strong>Boot Status</strong>
+                <p class="ready">Ready</p>
+            </div>
+
+            <div class="status-item">
+                <strong>Ubuntu Core</strong>
+                <p class="ready">Running</p>
+            </div>
+
+            <div class="status-item">
+                <strong>Network</strong>
+                <p id="networkStatus" class="waiting">Waiting</p>
+            </div>
+
+            <div class="status-item">
+                <strong>Setup</strong>
+                <p id="setupStatus" class="waiting">In Progress</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Problem Solved</h2>
+
+        <p>
+            This demo provides a simple visual representation of an
+            Ubuntu Core device boot and setup process.
+        </p>
+
+        <p>
+            It helps a user understand the major stages involved in
+            preparing a device and provides a clear status view of the
+            setup process.
+        </p>
+    </div>
+
+</div>
+
+<script>
+
+    let currentStep = 3;
+
+    function continueSetup() {
+
+        if (currentStep === 3) {
+
+            document.getElementById("number3").className =
+                "number completed";
+
+            document.getElementById("number3").innerHTML = "✓";
+
+            document.getElementById("number4").className =
+                "number current";
+
+            document.getElementById("networkStatus").innerHTML =
+                "Connected";
+
+            document.getElementById("networkStatus").className =
+                "ready";
+
+            document.getElementById("message").innerHTML =
+                "Network connected. Continue with device configuration.";
+
+            currentStep = 4;
+
+        } else if (currentStep === 4) {
+
+            document.getElementById("number4").className =
+                "number completed";
+
+            document.getElementById("number4").innerHTML = "✓";
+
+            document.getElementById("number5").className =
+                "number completed";
+
+            document.getElementById("number5").innerHTML = "✓";
+
+            document.getElementById("setupStatus").innerHTML =
+                "Complete";
+
+            document.getElementById("setupStatus").className =
+                "ready";
+
+            document.getElementById("message").innerHTML =
+                "Device setup completed successfully!";
+
+            currentStep = 5;
+
+        } else {
+
+            document.getElementById("message").innerHTML =
+                "The device is already fully configured.";
+
+        }
+    }
+
+</script>
+
+</body>
+</html>
